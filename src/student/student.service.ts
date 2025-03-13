@@ -49,6 +49,19 @@ export class StudentService {
   }
 
   async update(id: number, updateStudentDto: UpdateStudentDto) {
+    // Try to find the student by ID
+    const foundStudent = await this.databaseService.student.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    // If the student does not exist, you can throw a NotFoundException
+    if (!foundStudent) {
+      throw new NotFoundException(`Student with ID ${id} not found`);
+    }
+
+    // Update the found student
     const updatedStudent = await this.databaseService.student.update({
       where: {
         id,
@@ -60,14 +73,28 @@ export class StudentService {
     response.id = updatedStudent.id;
     response.name = updatedStudent.name;
 
-    return response;
+    return response;    // Consider returning true, as the system that requested the update already has the data
   }
 
   async remove(id: number) {
-    return this.databaseService.student.delete({
+    // Try to find the student by ID
+    const foundStudent = await this.databaseService.student.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    // If the student does not exist, you can throw a NotFoundException
+    if (!foundStudent) {
+      throw new NotFoundException(`Student with ID ${id} not found`);
+    }
+
+    await this.databaseService.student.delete({
       where: {
         id,     // The comma indicates the value has the same name as the key
       }
     });
+
+    return true;
   }
 }
