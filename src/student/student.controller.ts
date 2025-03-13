@@ -1,9 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseFilters } from '@nestjs/common';
 import { StudentService } from './student.service';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
+import { ApiExceptionsFilter } from 'src/exception-filters/api-exception-filters';
 
 @Controller('student')
+@UseFilters(ApiExceptionsFilter)
 export class StudentController {
   constructor(private readonly studentService: StudentService) {}
 
