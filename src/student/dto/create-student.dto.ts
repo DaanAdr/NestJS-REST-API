@@ -1,7 +1,7 @@
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsAlpha, IsNotEmpty } from "class-validator";
 
 export class CreateStudentDto {
-    @IsString()
+    @IsAlpha()
     @IsNotEmpty()
     name: string
 }

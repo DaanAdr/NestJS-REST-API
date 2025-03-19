@@ -1,10 +1,10 @@
 import * as request from 'supertest';
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
-import { AppModule } from '../src/app.module';
-import { DatabaseService } from '../src/database/database.service';
-import { CreateStudentDto } from '../src/student/dto/create-student.dto';
-import { GetStudentDto } from '../src/student/dto/get-student.dto';
+import { AppModule } from '../../../src/app.module';
+import { DatabaseService } from '../../../src/database/database.service';
+import { CreateStudentDto } from '../../../src/student/dto/create-student.dto';
+import { GetStudentDto } from '../../../src/student/dto/get-student.dto';
 
 describe('StudentsController E2E Tests', () => {
   let app: INestApplication;
@@ -38,7 +38,7 @@ describe('StudentsController E2E Tests', () => {
   });
 
   // This is an actual test case
-  it(`/GET students`, async () => {
+  it(`/GET student`, async () => {
     // Arrange
     const expectedNames = ['Markus', 'Elias'];
 
