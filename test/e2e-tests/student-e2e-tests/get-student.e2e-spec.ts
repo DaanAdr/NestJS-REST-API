@@ -4,7 +4,6 @@ import { INestApplication } from '@nestjs/common';
 import { AppModule } from '../../../src/app.module';
 import { DatabaseService } from '../../../src/database/database.service';
 import { CreateStudentDto } from '../../../src/student/dto/create-student.dto';
-import { GetStudentDto } from '../../../src/student/dto/get-student.dto';
 
 describe('StudentsController E2E Tests', () => {
   let app: INestApplication;
