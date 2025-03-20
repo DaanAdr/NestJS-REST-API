@@ -1,26 +1,39 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCourseDto } from './dto/create-course.dto';
-import { UpdateCourseDto } from './dto/update-course.dto';
+import { DatabaseService } from '../database/database.service';
+import { GetCourseDto } from './dto/get-course.dto';
 
 @Injectable()
 export class CourseService {
-  create(createCourseDto: CreateCourseDto) {
-    return 'This action adds a new course';
+  constructor(private readonly databaseService: DatabaseService) {}
+
+  async create(createCourseDto: CreateCourseDto) {
+    const createdCourse = await this.databaseService.course.create({
+      data: createCourseDto,
+      include: {
+        teacher: true
+      }
+    });
+
+    var response = new GetCourseDto;
+    response.id = createdCourse.id;
+    response.course_name = createdCourse.name;
+    response.teacher_name = createdCourse.teacher.name;
+
+    return response;
   }
 
-  findAll() {
-    return `This action returns all course`;
-  }
+  async findAll() {
+    const courses = await this.databaseService.course.findMany({
+      include: {
+        teacher: true
+      }
+    });
 
-  findOne(id: number) {
-    return `This action returns a #${id} course`;
-  }
-
-  update(id: number, updateCourseDto: UpdateCourseDto) {
-    return `This action updates a #${id} course`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} course`;
+    return courses.map(course => ({
+      id: course.id,
+      course_name: course.name,
+      teacher_name: course.teacher.name
+    } as GetCourseDto));
   }
 }
