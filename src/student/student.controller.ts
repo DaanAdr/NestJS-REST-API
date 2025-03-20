@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseFilters } from '@
 import { StudentService } from './student.service';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
-import { ApiExceptionsFilter } from 'src/exception-filters/api-exception-filters';
+import { ApiExceptionsFilter } from '../exception-filters/api-exception-filters';
 
 @Controller('student')
 @UseFilters(ApiExceptionsFilter)
