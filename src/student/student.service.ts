@@ -22,11 +22,18 @@ export class StudentService {
 
   async findAll() : Promise<GetStudentDto[]>
   {
-    const students = await this.databaseService.student.findMany();   // Const variables value can't change after declaration
+    const students = await this.databaseService.student.findMany({
+      include: {
+        courses: true
+      }
+    });   // Const variables value can't change after declaration
 
     return students.map(student => ({
       id: student.id,
-      name: student.name
+      name: student.name,
+      courses: student.studentCourses.map(studentCourse => ({
+        course: studentCourse.courseId.
+      }))
     } as GetStudentDto));       // You can also create and return a new GetStudentDto in the map arrow-function function
   }
 
